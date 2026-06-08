@@ -1,0 +1,277 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Online Spices Shopping App</title>
+</head>
+<body style="
+margin:0;
+font-family:Arial, sans-serif;
+background:#f5f7f5;
+">
+
+<!-- Navbar -->
+
+<div style="
+background:#1b5e20;
+padding:15px 30px;
+color:white;
+display:flex;
+justify-content:space-between;
+align-items:center;
+">
+
+<div style="
+font-size:24px;
+font-weight:bold;
+">
+🌿 Spices Store
+</div>
+
+<div>
+
+<a href="/" style="
+color:white;
+text-decoration:none;
+margin-right:15px;
+">Home</a>
+
+<a href="/cart" style="
+color:white;
+text-decoration:none;
+margin-right:15px;
+">Cart</a>
+
+<a href="/orders/history/" style="
+color:white;
+text-decoration:none;
+margin-right:15px;
+">My Orders</a>
+
+{% if user.is_authenticated %}
+
+<span style="margin-right:15px;">
+Welcome {{ user.username }}
+</span>
+
+<a href="/accounts/logout/" style="
+color:white;
+text-decoration:none;
+">
+Logout </a>
+
+{% else %}
+
+<a href="/accounts/login/" style="
+color:white;
+text-decoration:none;
+margin-right:15px;
+">
+Login </a>
+
+<a href="/accounts/signup/" style="
+color:white;
+text-decoration:none;
+">
+Signup </a>
+
+{% endif %}
+
+</div>
+
+</div>
+
+<!-- Banner -->
+
+<div style="
+background:linear-gradient(135deg,#66bb6a,#43a047);
+color:white;
+text-align:center;
+padding:60px 20px;
+">
+
+<h1 style="font-size:40px;">
+Fresh Spices Delivered To Your Doorstep
+</h1>
+
+<p style="font-size:18px;">
+Premium Quality • Best Price • Fast Delivery
+</p>
+
+</div>
+
+<!-- Categories -->
+
+<h2 style="
+text-align:center;
+margin-top:40px;
+">
+Popular Spice Categories
+</h2>
+
+<div style="
+display:flex;
+justify-content:center;
+gap:40px;
+flex-wrap:wrap;
+margin-bottom:40px;
+">
+
+<div style="text-align:center;">
+<img src="{% static 'images/pepper.jpg' %}"
+width="150"
+height="150"
+style="border-radius:15px;">
+<p><b>Pepper</b></p>
+</div>
+
+<div style="text-align:center;">
+<img src="{% static 'images/turmeric.jpg' %}"
+width="150"
+height="150"
+style="border-radius:15px;">
+<p><b>Turmeric</b></p>
+</div>
+
+<div style="text-align:center;">
+<img src="{% static 'images/cardamom.jpg' %}"
+width="150"
+height="150"
+style="border-radius:15px;">
+<p><b>Cardamom</b></p>
+</div>
+
+</div>
+
+<!-- Search -->
+
+<div style="text-align:center;">
+
+<form method="GET">
+
+<input
+type="text"
+name="q"
+placeholder="Search Spices..."
+style="
+width:300px;
+padding:12px;
+border-radius:25px;
+border:1px solid #ccc;
+">
+
+<button
+type="submit"
+style="
+padding:12px 20px;
+background:#2e7d32;
+color:white;
+border:none;
+border-radius:25px;
+">
+Search </button>
+
+</form>
+
+</div>
+
+<h2 style="
+text-align:center;
+margin-top:40px;
+">
+Available Products
+</h2>
+
+<!-- Products -->
+
+<div style="
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+">
+
+{% for product in products %}
+
+<div style="
+background:white;
+width:280px;
+margin:20px;
+padding:20px;
+border-radius:15px;
+box-shadow:0px 4px 15px rgba(0,0,0,0.15);
+text-align:center;
+">
+
+{% if product.image %}
+
+<img
+src="{{ product.image.url }}"
+width="220"
+height="220"
+style="border-radius:10px;">
+
+{% endif %}
+
+<h3>{{ product.name }}</h3>
+
+<p style="
+color:#2e7d32;
+font-size:20px;
+font-weight:bold;
+">
+₹{{ product.price }}
+</p>
+<p>
+<b>Pack Size:</b> {{ product.weight }}
+</p>
+
+<p>
+{{ product.description }}
+</p>
+
+<a href="/cart/add/{{ product.id }}">
+
+<button style="
+background:#2e7d32;
+color:white;
+padding:12px 20px;
+border:none;
+border-radius:8px;
+cursor:pointer;
+">
+Add To Cart </button>
+
+</a>
+
+</div>
+
+{% endfor %}
+
+</div>
+
+<!-- Footer -->
+
+<div style="
+background:#1b1b1b;
+color:white;
+padding:30px;
+text-align:center;
+margin-top:40px;
+">
+
+<h3>🌿 Online Spices Shopping App</h3>
+
+<p>
+Fresh • Pure • Authentic Spices
+</p>
+
+<p>
+© 2026 All Rights Reserved
+</p>
+
+</div>
+
+</body>
+</html>
